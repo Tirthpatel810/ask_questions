@@ -1,0 +1,1 @@
+This project is developed in angularjs and django in this project when user ask the question and select from which plateform he want the answer it get from ther it also has speak functionality. it also use translate api for translate from one language to other. and searching sorting also avalible and finally we got report through email.
