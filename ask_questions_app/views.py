@@ -32,6 +32,23 @@ import pyttsx3
 def index(request):
     return render(request, 'index.html')
 
+def get_access_token():
+    url = 'https://www.reddit.com/api/v1/access_token'
+    data = {
+        'grant_type': 'password',
+        'username': settings.REDDIT_USERNAME,
+        'password': settings.REDDIT_PASSWORD
+    }
+    auth = requests.auth.HTTPBasicAuth(settings.REDDIT_CLIENT_ID,settings.REDDIT_CLIENT_SECRET)
+    response = requests.post(url, auth=auth, 
+                             data=data, headers={'User-Agent': settings.USER_AGENT})
+    
+    if response.status_code == 200:
+        # print(response.json())
+        return response.json()['access_token']
+    else:
+        raise Exception('Failed to get access token')
+
 @api_view(['POST'])
 def get_reddit_answers(request):
     question_text = request.data.get('question', '')
@@ -43,8 +60,12 @@ def get_reddit_answers(request):
         question = Question.objects.get(question_text=question_text, source='reddit')
         return Response({'question': question_text, 'answers': question.answers}, status=status.HTTP_200_OK)
     except Question.DoesNotExist:
-        url = f"https://www.reddit.com/search.json?q={question_text}&sort=relevance&t=all"
-        headers = {'User-Agent': 'Q&A_app/0.1 by TirthPatel0810'}
+        access_token = get_access_token()
+        headers = {
+            'Authorization': f'bearer {access_token}',
+            'User-Agent': settings.USER_AGENT
+        }
+        url = f"https://oauth.reddit.com/search.json?q={question_text}&sort=relevance&t=all"
 
         try:
             response = requests.get(url, headers=headers, timeout=10)
@@ -67,6 +88,7 @@ def get_reddit_answers(request):
                         'url': url
                     })
 
+                # Save the question and results to your database
                 Question.objects.create(question_text=question_text, source='reddit', answers=results)
 
                 return Response({'question': question_text, 'answers': results}, status=status.HTTP_200_OK)

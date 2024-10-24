@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-$7)v($i2i8^08qke(svnz#ywwb82o1)wqm-q(reee67(y1g+k!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '172.21.112.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.0.140']
 
 
 # Application definition
@@ -138,10 +138,11 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # rediit api
-REDDIT_CLIENT_ID = 'S3urzsTVIwLv0Me8iJjK3g'
-REDDIT_CLIENT_SECRET = '_O7sRkX4Etfr5SvJVa-s8GIxjF623Q'
+REDDIT_CLIENT_ID = 'JEtODbW7fGypyCGubPTFvg'
+REDDIT_CLIENT_SECRET = '5d914klpWW8By-DOZCBG9pCLw3_yVw'
 REDDIT_USERNAME = 'TirthPatel0810'
 REDDIT_PASSWORD = 'Tirth@2002'
+USER_AGENT = 'Q&A_app_script/0.1 by TirthPatel0810'
 
 # Email
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

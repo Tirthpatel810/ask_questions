@@ -34,7 +34,6 @@
             </div>
 
             <div class="button-group">
-                <button type="button" class="btn translate-btn" ng-click="translateQuestion(question, 123)">Translate Question</button>
                 <button type="button" class="btn reddit-btn" ng-click="get_answer_from_reddit()">Get from Reddit</button>
                 <button type="button" class="btn stackoverflow-btn" ng-click="get_answer_from_stackoverflow()">Get from StackOverflow</button>
             </div>
@@ -46,13 +45,13 @@
         </div>
 
         <!-- Translated Question Section -->
-        <div class="translated-section" ng-if="translated_data">
+        <!-- <div class="translated-section" ng-if="translated_data">
             <h3>Translated Question:</h3>
             <p class="translated-text" ng-bind="translated_data"></p>
             <button type="button" class="btn speak-btn" ng-click="speak(question)">
                 <img src="{% static 'frontend/icons/speak-icon.png' %}" alt="Speak" style="width: 20px; height: 20px;">
             </button>
-        </div>
+        </div> -->
 
         <!-- StackOverflow Answers Section -->
         <div class="answers-section stackoverflow-answers" ng-if="show_data_stackoverflow">
@@ -174,7 +173,6 @@
             </div>
         </div>
 
-        <!-- Fallback Message -->
         <div ng-if="!show_data_stackoverflow && !show_data_reddit">
             <p ng-bind="msg" class="status-message"></p>
         </div>
